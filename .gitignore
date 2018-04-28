@@ -1,0 +1,6 @@
+*.dll
+*.nupkg
+emailAPI/.vs/*
+emailAPI/emailAPI/bin/*
+emailAPI/packages/*
+emailAPI/emailAPI/obj/*

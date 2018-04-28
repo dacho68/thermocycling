@@ -173,9 +173,10 @@
 								</section>
 														
 							</div>
-							<!--<ul class="actions">
-								<li><a href="#" class="button">Learn more</a></li>
-							</ul>-->
+							<ul class="actions">
+								<li><a href="http://localhost:50328/api/email" class="button">Learn more</a></li>
+							</ul>
+							<button type="button" onclick="sendData({test:'ok'})">Click Me!</button>
 						</div>
 					</section>
 				<!-- Three -->
@@ -185,7 +186,7 @@
 							<p></p>
 							<div class="split style1">
 								<section>
-									<form method="post" action="#">
+									<form id="form2" method="post" action="http://localhost:50328/api/email">
 										<div class="field half first">
 											<label for="name">Name</label>
 											<input type="text" name="name" id="name" />
@@ -201,6 +202,7 @@
 										<ul class="actions">
 											<li><a href="" class="button submit">Send Message</a></li>
 										</ul>
+										<label for="error_message"></label>
 									</form>
 								</section>
 								<section>
@@ -254,6 +256,43 @@
 			<script src="assets/js/util.js"></script>
 			<!--[if lte IE 8]><script src="assets/js/ie/respond.min.js"></script><![endif]-->
 			<script src="assets/js/main.js"></script>
+			<!-- <script src="assets/js/email.js"></script> -->
+			<script type="text/javascript">
+				function ValidateEmail(inputText)
+				{
+					var mailformat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+					if(inputText.value.match(mailformat))
+					{
+						document.form1.text1.focus();
+						return true;
+					}
+					else
+					{
+						alert("You have entered an invalid email address!");
+						document.form1.text1.focus();
+						return false;
+					}
+				}
+
+				$('#form2')
+				    .submit(function () {
+	
+					var jqxhr = $.post('http://localhost:50328/api/email', { "": [$('#name').val(),$('#email').val(),$('#message').val()] })
+						.success(function () {
+							var loc = jqxhr.getResponseHeader('Location');
+							var a = $('<a/>', { href: loc, text: loc });
+							$('#message').html(a);
+							$('#error_message').html("");
+						})
+						.error(function () {
+							$('#error_message').html("Error posting the update.");
+						});
+					return false;
+				});
+
+
+
+			</script>
 
 	</body>
 </html>
