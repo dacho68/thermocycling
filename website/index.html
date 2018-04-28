@@ -276,8 +276,15 @@
 
 				$('#form2')
 				    .submit(function () {
-	
-					var jqxhr = $.post('http://localhost:50328/api/email', { "": [$('#name').val(),$('#email').val(),$('#message').val()] })
+						$.ajaxSetup({
+							crossDomain: true,
+							xhrFields: {
+								withCredentials: false
+							},
+							username: 'test',
+							password: 'test'
+						});
+				    	var jqxhr = $.post('http://localhost:50328/api/email', { "": [$('#name').val(),$('#email').val(),$('#message').val()] })
 						.success(function () {
 							var loc = jqxhr.getResponseHeader('Location');
 							var a = $('<a/>', { href: loc, text: loc });
