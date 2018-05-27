@@ -44,6 +44,17 @@ namespace emailAPI.Controllers
       client.Credentials = new System.Net.NetworkCredential("ca99579f2f22919d28f00bcbbd1fe62f", "391368c841b30f01283a1b293772ee17");
 
       client.Send(msg);
+
+      MailMessage msgJoel = new MailMessage();
+
+      msgJoel.From = new System.Net.Mail.MailAddress(values[1], values[0]);
+      msgJoel.To.Add(new System.Net.Mail.MailAddress("Joel.Delisle.com", "Joel Delisle"));
+
+      msgJoel.Subject = "Customer questions";
+      msgJoel.Body = values[2];
+
+ 
+      client.Send(msgJoel);
     }
 
     // PUT api/<controller>/5
